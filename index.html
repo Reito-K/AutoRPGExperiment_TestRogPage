@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>実験データ</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 24px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-break: break-all;
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>実験データ</h1>
+
+    <p>
+        以下の文字列を研究データとして使用します。
+    </p>
+
+    <pre id="data"></pre>
+
+    <button id="copyButton">
+        コピー
+    </button>
+
+    <script>
+        const encoded =
+            location.hash.substring(1);
+
+        let text;
+
+        try {
+            text =
+                decodeURIComponent(encoded);
+        }
+        catch {
+            text = encoded;
+        }
+
+        document.getElementById("data")
+            .textContent = text;
+
+        document.getElementById("copyButton")
+            .addEventListener(
+                "click",
+                async () => {
+                    await navigator.clipboard
+                        .writeText(text);
+
+                    alert("コピーしました");
+                }
+            );
+    </script>
+</body>
+</html>
